@@ -206,12 +206,12 @@ summary {
 
 .button-primary {
   color: #fff;
-  background: var(--text);
+  background: var(--violet);
   box-shadow: 0 12px 24px rgba(17, 17, 20, 0.15);
 }
 
 .button-primary:hover {
-  background: #29292f;
+  background: var(--violet-dark);
   box-shadow: 0 16px 30px rgba(17, 17, 20, 0.2);
 }
 
@@ -404,9 +404,9 @@ summary {
   border-radius: 45% 55% 48% 52%;
   background:
     radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.85), transparent 22%),
-    linear-gradient(145deg, rgba(109, 69, 245, 0.4), rgba(22, 119, 255, 0.16));
+    linear-gradient(145deg, rgba(109, 69, 245, 0.6), rgba(22, 119, 255, 0.18));
   filter: blur(40px);
-  opacity: 0.8;
+  opacity: 3;
   content: "";
 }
 
