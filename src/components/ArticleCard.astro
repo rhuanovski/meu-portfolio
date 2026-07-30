@@ -1,0 +1,30 @@
+---
+import { ArrowUpRight } from "lucide-react";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  article: CollectionEntry<"articles">;
+}
+
+const { article } = Astro.props;
+const { data } = article;
+const formattedDate = new Intl.DateTimeFormat("pt-BR", {
+  month: "short",
+  year: "numeric",
+}).format(data.publishedAt);
+---
+
+<article class:list={["article-card", `accent-${data.accent}`]}>
+  <div class="article-meta">
+    <span>{data.category}</span>
+    <span class="meta-dot">{formattedDate}</span>
+    <span class="meta-dot">{data.readingTime} min</span>
+  </div>
+  <h3 class="article-title">{data.title}</h3>
+  <p class="article-description">{data.description}</p>
+  <span class="text-link" aria-hidden="true">
+    Ler artigo
+    <ArrowUpRight size={17} strokeWidth={1.9} />
+  </span>
+  <a class="card-link" href={`/artigos/${article.id}`} aria-label={`Ler artigo ${data.title}`}></a>
+</article>

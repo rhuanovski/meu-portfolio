@@ -1,0 +1,182 @@
+---
+import {
+  ArrowRight,
+  BrainCircuit,
+  Code2,
+  Layers3,
+  MapPin,
+  ScanEye,
+  ShieldCheck,
+} from "lucide-react";
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import ArticleCard from "../components/ArticleCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { site } from "../data/site";
+
+const projects = (await getCollection("projects", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const featuredProjects = projects.filter(({ data }) => data.featured).slice(0, 3);
+const articles = (await getCollection("articles", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 2);
+---
+
+<BaseLayout>
+  <section class="container hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Engenharia da computação • Software</p>
+      <h1 class="display-title">
+        Tecnologia com <span class="gradient-text">clareza.</span>
+      </h1>
+      <p class="lede">
+        Construo produtos digitais que conectam engenharia, experiência e propósito —
+        da arquitetura ao detalhe que torna uma interface simples de usar.
+      </p>
+      <div class="button-row">
+        <a class="button button-accent" href="/projetos">
+          Explorar projetos
+          <ArrowRight size={17} strokeWidth={1.9} />
+        </a>
+        <a class="button button-secondary" href="/sobre">Conheça meu trabalho</a>
+      </div>
+      <p class="hero-note">
+        <span class="availability-dot" aria-hidden="true"></span>
+        Disponível para projetos, pesquisa aplicada e boas conversas.
+      </p>
+    </div>
+
+    <div class="portrait-stage">
+      <div class="portrait-frame">
+        <img
+          src={site.profileImage}
+          alt={site.profileImageAlt}
+          width="762"
+          height="672"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
+      <div class="portrait-badge">
+        <span class="portrait-badge-icon" aria-hidden="true">
+          <MapPin size={17} strokeWidth={1.8} />
+        </span>
+        <span>
+          <strong>Marabá, Pará</strong>
+          <span>Projetando a partir da Amazônia</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="container signal-bar" aria-label="Áreas de atuação">
+    <div class="signal">
+      <strong>Produtos de ponta a ponta</strong>
+      <span>Web, software e experiências digitais.</span>
+    </div>
+    <div class="signal">
+      <strong>Engenharia aplicada</strong>
+      <span>Arquitetura, dados, segurança e pesquisa.</span>
+    </div>
+    <div class="signal">
+      <strong>Design intencional</strong>
+      <span>Clareza visual com menos ruído e mais propósito.</span>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Trabalho selecionado"
+        title="Projetos que resolvem problemas reais."
+        description="Uma seleção de produtos, pesquisas e experimentos em que arquitetura e experiência caminham juntas."
+        href="/projetos"
+        linkLabel="Ver todos os projetos"
+      />
+      <div class="project-grid">
+        {featuredProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Como eu trabalho"
+        title="Engenharia em quatro camadas."
+        description="Cada decisão técnica começa pelo problema e termina na experiência de quem usa."
+      />
+      <div class="bento-grid">
+        <article class="bento-card">
+          <span class="bento-icon" aria-hidden="true"><Layers3 size={22} strokeWidth={1.8} /></span>
+          <h3>Arquitetura que continua simples.</h3>
+          <p>
+            Estruturo aplicações, integrações e dados para crescer sem transformar
+            manutenção em um obstáculo.
+          </p>
+        </article>
+        <article class="bento-card">
+          <span class="bento-icon" aria-hidden="true"><ShieldCheck size={22} strokeWidth={1.8} /></span>
+          <h3>Segurança desde a primeira decisão.</h3>
+          <p>
+            Permissões, isolamento e rastreabilidade fazem parte do desenho do produto.
+          </p>
+        </article>
+        <article class="bento-card">
+          <span class="bento-icon" aria-hidden="true"><ScanEye size={22} strokeWidth={1.8} /></span>
+          <h3>Visão computacional na prática.</h3>
+          <p>
+            Experimentos observáveis com OpenCV, MediaPipe e processamento de imagens.
+          </p>
+        </article>
+        <article class="bento-card">
+          <span class="bento-icon" aria-hidden="true"><BrainCircuit size={22} strokeWidth={1.8} /></span>
+          <h3>Pesquisa que aceita resultados difíceis.</h3>
+          <p>
+            Reproduzo, comparo e documento evidências — inclusive quando elas contrariam
+            o resultado esperado.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Notas e aprendizados"
+        title="Ideias documentadas, não guardadas."
+        description="Textos sobre decisões de engenharia, pesquisa aplicada e os detalhes que mudam um produto."
+        href="/artigos"
+        linkLabel="Abrir arquivo de artigos"
+      />
+      <div class="article-grid">
+        {articles.map((article) => <ArticleCard article={article} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-compact">
+    <div class="container">
+      <div class="cta">
+        <h2>Tem um problema interessante para resolver?</h2>
+        <p>
+          Estou aberto a colaborações, oportunidades e projetos que valorizem
+          engenharia bem pensada e experiência cuidadosa.
+        </p>
+        <div class="button-row">
+          <a class="button button-accent" href="/contato">
+            Vamos conversar
+            <ArrowRight size={17} strokeWidth={1.9} />
+          </a>
+          <a class="button button-secondary" href={site.github} target="_blank" rel="noreferrer">
+            <Code2 size={17} strokeWidth={1.9} />
+            Ver GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

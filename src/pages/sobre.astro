@@ -1,0 +1,93 @@
+---
+import { Check, GithubIcon } from "lucide-react";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { site } from "../data/site";
+---
+
+<BaseLayout
+  title="Sobre"
+  description="Conheça Rhuan Carlos, estudante de Engenharia da Computação e desenvolvedor de software em Marabá, Pará."
+>
+  <header class="container page-hero">
+    <p class="eyebrow">Sobre</p>
+    <h1 class="page-title">Tecnologia deve tornar o complexo compreensível.</h1>
+    <p class="lede">
+      Sou Rhuan Carlos, estudante de Engenharia da Computação e desenvolvedor
+      interessado em produtos digitais, arquitetura, inteligência artificial e
+      interfaces cuidadosamente construídas.
+    </p>
+  </header>
+
+  <section class="section section-compact">
+    <div class="container about-grid">
+      <div class="about-copy">
+        <p>
+          Gosto de trabalhar na fronteira entre disciplinas: entender o problema,
+          organizar as regras, desenhar a experiência e transformar tudo isso em
+          software que outras pessoas consigam usar e manter.
+        </p>
+        <p>
+          Minha prática passa por aplicações web, sistemas serverless, bancos de dados,
+          segurança, visão computacional e reprodução de experimentos em inteligência
+          artificial.
+        </p>
+        <p>
+          O “Apple Design” deste portfólio resume uma preferência pessoal: menos ruído,
+          hierarquia clara, detalhes discretos e tecnologia a serviço da experiência.
+        </p>
+        <div class="button-row">
+          <a class="button button-primary" href={site.github} target="_blank" rel="noreferrer">
+            <GithubIcon size={17} strokeWidth={1.9} />
+            Ver código no GitHub
+          </a>
+          <a class="button button-secondary" href="/contato">Entrar em contato</a>
+        </div>
+      </div>
+      <aside>
+        <p class="eyebrow">Princípios de trabalho</p>
+        <ul class="principles" style="margin-top:20px">
+          {[
+            "Clareza antes de complexidade",
+            "Segurança como requisito do produto",
+            "Decisões técnicas documentadas",
+            "Acessibilidade e performance",
+            "Curiosidade com rigor",
+          ].map((principle) => (
+            <li class="principle">
+              <span class="principle-check" aria-hidden="true">
+                <Check size={13} strokeWidth={2.2} />
+              </span>
+              {principle}
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-tint">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Stack"
+        title="Ferramentas mudam. Fundamentos permanecem."
+        description="Seleciono tecnologias pela adequação ao problema, sem perder de vista legibilidade, segurança e custo de manutenção."
+      />
+      <div class="filter-row">
+        {[
+          "JavaScript",
+          "TypeScript",
+          "React",
+          "Python",
+          "OpenCV",
+          "PostgreSQL",
+          "Supabase",
+          "Cloudflare",
+          "Git",
+          "C / C++",
+          "Java",
+        ].map((technology) => <span class="filter-chip">{technology}</span>)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

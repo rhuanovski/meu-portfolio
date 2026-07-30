@@ -1,0 +1,20 @@
+---
+import { Archive } from "lucide-react";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<div class="empty-state">
+  <div>
+    <span class="empty-state-icon" aria-hidden="true">
+      <Archive size={21} strokeWidth={1.8} />
+    </span>
+    <h3>{title}</h3>
+    <p>{description}</p>
+  </div>
+</div>

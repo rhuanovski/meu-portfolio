@@ -1,0 +1,130 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EmptyState from "../components/EmptyState.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+
+const events = (await getCollection("events", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const certificates = (await getCollection("certificates", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<BaseLayout
+  title="Trajetória"
+  description="Formação, eventos e certificações na trajetória de Rhuan Carlos em Engenharia da Computação."
+>
+  <header class="container page-hero">
+    <p class="eyebrow">Trajetória</p>
+    <h1 class="page-title">Aprender, aplicar, documentar.</h1>
+    <p class="lede">
+      Uma trajetória construída entre a universidade, projetos independentes,
+      pesquisa aplicada e aprendizado contínuo.
+    </p>
+  </header>
+
+  <section class="section section-compact">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Formação"
+        title="Engenharia como forma de pensar."
+        description="A formação acadêmica organiza fundamentos; os projetos transformam esses fundamentos em decisões reais."
+      />
+      <div class="timeline">
+        <article class="timeline-item">
+          <span class="timeline-dot" aria-hidden="true"></span>
+          <span class="timeline-date">Em andamento</span>
+          <div class="timeline-content">
+            <h3>Engenharia da Computação</h3>
+            <p>
+              Universidade Federal do Sul e Sudeste do Pará — UNIFESSPA.
+              Formação conectando software, computação, sistemas e resolução de problemas.
+            </p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <span class="timeline-dot" aria-hidden="true"></span>
+          <span class="timeline-date">Contínuo</span>
+          <div class="timeline-content">
+            <h3>Pesquisa e projetos independentes</h3>
+            <p>
+              Arquitetura de software, inteligência artificial, visão computacional,
+              desenvolvimento web e experimentação técnica.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Participações"
+        title="Eventos e comunidades."
+        description="Registros de apresentações, encontros e experiências compartilhadas."
+      />
+      {
+        events.length > 0 ? (
+          <div class="timeline">
+            {events.map(({ data }) => (
+              <article class="timeline-item">
+                <span class="timeline-dot" aria-hidden="true"></span>
+                <time class="timeline-date" datetime={data.publishedAt.toISOString()}>
+                  {new Intl.DateTimeFormat("pt-BR", { month: "short", year: "numeric" }).format(data.publishedAt)}
+                </time>
+                <div class="timeline-content">
+                  <h3>{data.title}</h3>
+                  <p>{data.organizer} · {data.role} · {data.location}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            title="Arquivo de eventos em organização"
+            description="A estrutura já está pronta para receber participações, palestras e registros fotográficos."
+          />
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Certificações"
+        title="Aprendizados verificáveis."
+        description="Cursos, formações complementares e credenciais serão reunidos aqui."
+      />
+      {
+        certificates.length > 0 ? (
+          <div class="project-grid">
+            {certificates.map(({ data }) => (
+              <article class="project-card">
+                <div class="project-content">
+                  <div class="project-meta">
+                    <span>{data.issuer}</span>
+                    <time class="meta-dot" datetime={data.publishedAt.toISOString()}>
+                      {new Intl.DateTimeFormat("pt-BR", { year: "numeric" }).format(data.publishedAt)}
+                    </time>
+                  </div>
+                  <h3 class="project-title">{data.title}</h3>
+                  <p class="project-description">{data.description}</p>
+                  <div class="tag-list">
+                    {data.skills.map((skill) => <span class="tag">{skill}</span>)}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            title="Certificados serão adicionados em breve"
+            description="Os registros aparecerão com emissor, data, competências e link de verificação."
+          />
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

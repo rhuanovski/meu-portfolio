@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import EmptyState from "../../components/EmptyState.astro";
+
+const articles = (await getCollection("articles", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const categories = [...new Set(articles.map(({ data }) => data.category))];
+---
+
+<BaseLayout
+  title="Artigos"
+  description="Artigos de Rhuan Carlos sobre engenharia de software, arquitetura, inteligência artificial e pesquisa aplicada."
+>
+  <header class="container page-hero">
+    <p class="eyebrow">Artigos</p>
+    <h1 class="page-title">Pensar também é construir.</h1>
+    <p class="lede">
+      Anotações sobre decisões técnicas, resultados inesperados e o raciocínio
+      por trás de produtos e pesquisas.
+    </p>
+    <div class="filter-row" aria-label="Categorias dos artigos">
+      {categories.map((category) => <span class="filter-chip">{category}</span>)}
+    </div>
+  </header>
+
+  <section class="section section-compact">
+    <div class="container">
+      {
+        articles.length > 0 ? (
+          <div class="article-grid">
+            {articles.map((article) => <ArticleCard article={article} />)}
+          </div>
+        ) : (
+          <EmptyState
+            title="Novos textos em preparação"
+            description="Este arquivo receberá artigos sobre engenharia, pesquisa e produtos digitais."
+          />
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

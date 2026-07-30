@@ -1,0 +1,32 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const projects = (await getCollection("projects", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const technologies = [...new Set(projects.flatMap(({ data }) => data.stack))].slice(0, 9);
+---
+
+<BaseLayout
+  title="Projetos"
+  description="Projetos de software, pesquisa aplicada e visão computacional desenvolvidos por Rhuan Carlos."
+>
+  <header class="container page-hero">
+    <p class="eyebrow">Projetos</p>
+    <h1 class="page-title">Do problema ao produto.</h1>
+    <p class="lede">
+      Software, pesquisa e experimentos construídos com atenção à arquitetura,
+      evidência e experiência de uso.
+    </p>
+    <div class="filter-row" aria-label="Tecnologias presentes nos projetos">
+      {technologies.map((technology) => <span class="filter-chip">{technology}</span>)}
+    </div>
+  </header>
+
+  <section class="section section-compact">
+    <div class="container project-grid">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+</BaseLayout>

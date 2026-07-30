@@ -1,0 +1,106 @@
+---
+import { ArrowUpRight, Check, GithubIcon } from "lucide-react";
+import { getEntry, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const project = Astro.params.id
+  ? await getEntry("projects", Astro.params.id)
+  : undefined;
+
+if (!project || project.data.draft) {
+  return Astro.redirect("/404");
+}
+
+const { data } = project;
+const { Content } = await render(project);
+const formattedDate = new Intl.DateTimeFormat("pt-BR", {
+  month: "long",
+  year: "numeric",
+}).format(data.publishedAt);
+const origin = Astro.site ?? Astro.url.origin;
+const projectSchema = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: data.title,
+  description: data.description,
+  dateCreated: data.publishedAt.toISOString(),
+  author: {
+    "@type": "Person",
+    name: "Rhuan Carlos Vieira Feitoza",
+  },
+  url: new URL(`/projetos/${project.id}`, origin).toString(),
+  codeRepository: data.github,
+};
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  image={data.image}
+  jsonLd={projectSchema}
+>
+  <header class="container detail-hero">
+    <div class="detail-kicker">
+      <span>{data.eyebrow}</span>
+      <span>•</span>
+      <span>{formattedDate}</span>
+      <span>•</span>
+      <span>{data.status}</span>
+    </div>
+    <h1 class="detail-title">{data.title}</h1>
+    <p class="detail-description">{data.description}</p>
+    <div class="button-row">
+      {data.live && (
+        <a class="button button-accent" href={data.live} target="_blank" rel="noreferrer">
+          Abrir projeto
+          <ArrowUpRight size={17} strokeWidth={1.9} />
+        </a>
+      )}
+      {data.github && (
+        <a class="button button-secondary" href={data.github} target="_blank" rel="noreferrer">
+          <GithubIcon size={17} strokeWidth={1.9} />
+          Ver repositório
+        </a>
+      )}
+    </div>
+    {data.image && (
+      <figure class="detail-media">
+        <img src={data.image} alt={data.imageAlt ?? ""} width="1600" height="900" decoding="async" />
+      </figure>
+    )}
+  </header>
+
+  <section class="section section-compact">
+    <div class="container detail-layout">
+      <article class="prose">
+        <Content />
+      </article>
+      <aside class="detail-aside" aria-label="Resumo do projeto">
+        <div class="aside-block">
+          <p class="aside-label">Tecnologias</p>
+          <ul class="aside-list">
+            {data.stack.map((technology) => <li>{technology}</li>)}
+          </ul>
+        </div>
+        {data.highlights.length > 0 && (
+          <div class="aside-block">
+            <p class="aside-label">Destaques</p>
+            <ul class="aside-list">
+              {data.highlights.map((highlight) => (
+                <li style="display:flex;gap:8px;align-items:flex-start">
+                  <Check
+                    size={15}
+                    strokeWidth={2}
+                    color="var(--violet)"
+                    style={{ marginTop: "3px", flex: "0 0 auto" }}
+                  />
+                  <span>{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

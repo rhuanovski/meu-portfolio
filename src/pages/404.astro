@@ -1,0 +1,27 @@
+---
+import { ArrowLeft } from "lucide-react";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Página não encontrada"
+  description="A página solicitada não foi encontrada."
+  noindex={true}
+>
+  <section class="container not-found">
+    <div>
+      <p class="not-found-code" aria-hidden="true">404</p>
+      <h1>Este caminho não existe.</h1>
+      <p>
+        O endereço pode ter mudado ou a página ainda não foi publicada.
+        Você pode voltar ao início e continuar explorando.
+      </p>
+      <div class="button-row" style="justify-content:center">
+        <a class="button button-primary" href="/">
+          <ArrowLeft size={17} strokeWidth={1.9} />
+          Voltar ao início
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
