@@ -8,7 +8,8 @@ export const site = {
   email: "rhuanfeitoza1@gmail.com",
   github: "https://github.com/rhuanovski",
   linkedin: "https://linkedin.com/in/rhuan-carlos-vieira-feitoza",
-  whatsapp: "https://w.app/z3tncm",
+  whatsapp:
+    "https://wa.me/5594992891244?text=Vim%20do%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar.",
   profileImage: "/profile.webp",
   profileImageAlt:
     "Rhuan Carlos sentado à mesa de trabalho com um MacBook",

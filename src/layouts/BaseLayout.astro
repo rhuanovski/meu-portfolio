@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { MessageCircle } from "lucide-react";
 import "../styles/global.css";
 import { site } from "../data/site";
 
@@ -78,6 +79,16 @@ const personSchema = {
     <main id="conteudo" class="site-main">
       <slot />
     </main>
+    <a
+      class="whatsapp-fab"
+      href={site.whatsapp}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Conversar com Rhuan Carlos pelo WhatsApp"
+    >
+      <MessageCircle size={21} strokeWidth={2} aria-hidden="true" />
+      <span>WhatsApp</span>
+    </a>
     <Footer />
   </body>
 </html>
