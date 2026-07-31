@@ -1,9 +1,10 @@
 ---
 title: "Computer Vision Lab"
-description: "An experimental lab for image processing, detection, tracking, and real-time interaction."
-eyebrow: "Computer vision • Lab"
+description: "A collection of academic experiments in image processing, tracking, gestures, and real-time object detection."
+eyebrow: "Computer vision • College project"
 publishedAt: 2026-04-23
-status: "In development"
+updatedAt: 2026-07-31
+status: "Academic prototype"
 featured: true
 stack:
   - "Python"
@@ -12,27 +13,40 @@ stack:
   - "NumPy"
   - "YOLO"
 highlights:
-  - "Hand tracking"
-  - "Geometric transformations"
-  - "Real-time experiments"
+  - "Hand and face tracking"
+  - "Image transformations and filters"
+  - "Real-time camera experiments"
 image: "/images/projects/computer-vision-lab.webp"
-imageAlt: "Visual experiment from the computer vision lab"
-github: "https://github.com/rhuanovski/Visao_computacional_lab"
+imageAlt: "Visual experiment from the academic computer vision lab"
+github: "https://github.com/rhuanovski/computer-vision-lab"
 accent: "emerald"
 ---
 
-The Computer Vision Lab is an ongoing experimental space where computer vision
-concepts become working prototypes.
+Computer Vision Lab brings together exercises and prototypes I developed in
+college to turn computer vision concepts into visual, executable experiments.
 
-## Scope
+## Academic goal
 
-The lab covers pixel manipulation, filters, geometric transformations, object
-detection, segmentation, and tracking. Current experiments use OpenCV and
-MediaPipe to process images and interpret gestures in real time.
+The project was not conceived as a single finished product. It is a lab where I
+explored pixel manipulation, filters, intensity transformations, edge
+detection, face tracking, gesture recognition, and object detection.
 
-## Working method
+## How the experiments were built
 
-Each experiment is treated as a small, observable unit: controlled input,
-explicit transformation, and visual output. This approach makes it easier to
-compare algorithms, identify limitations, and reuse solutions in larger
-projects.
+The scripts use OpenCV for image capture and processing, MediaPipe for
+landmarks and gestures, and YOLO in detection experiments. Each file preserves
+one stage of the learning process and makes its output observable through
+images or a live camera feed.
+
+## What the project demonstrates
+
+Although it is an academic and experimental collection, the lab documents the
+progression from simple ideas to real-time interactions. It also shows how
+rapid prototyping can help compare techniques, identify limitations, and reuse
+solutions in larger projects.
+
+## Current state
+
+The repository has been prepared for publication, but it still represents
+study experiments. Some scripts require a camera, external models, or extra
+configuration and should not be treated as production applications.
