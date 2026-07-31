@@ -1,0 +1,17 @@
+{
+  "name": "Rhuan Carlos — Portfolio",
+  "short_name": "Rhuan Carlos",
+  "description": "Software engineering, digital products, and applied research.",
+  "lang": "en",
+  "start_url": "/en",
+  "display": "standalone",
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ]
+}

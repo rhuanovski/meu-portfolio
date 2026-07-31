@@ -1,0 +1,78 @@
+---
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { getEntry, render } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const article = Astro.params.id
+  ? await getEntry("articlesEn", Astro.params.id)
+  : undefined;
+
+if (!article || article.data.draft) {
+  return Astro.redirect("/en/404");
+}
+
+const { data } = article;
+const { Content } = await render(article);
+const formattedDate = new Intl.DateTimeFormat("en-US", {
+  day: "2-digit",
+  month: "long",
+  year: "numeric",
+}).format(data.publishedAt);
+const origin = Astro.site ?? Astro.url.origin;
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: data.title,
+  description: data.description,
+  datePublished: data.publishedAt.toISOString(),
+  dateModified: (data.updatedAt ?? data.publishedAt).toISOString(),
+  inLanguage: "en",
+  author: {
+    "@type": "Person",
+    name: "Rhuan Carlos Vieira Feitoza",
+  },
+  mainEntityOfPage: new URL(`/en/articles/${article.id}`, origin).toString(),
+};
+---
+
+<BaseLayout
+  locale="en"
+  title={data.title}
+  description={data.description}
+  image={data.image}
+  type="article"
+  jsonLd={articleSchema}
+>
+  <header class="narrow detail-hero">
+    <a class="text-link" href="/en/articles">
+      <ArrowLeft size={17} strokeWidth={1.9} />
+      All articles
+    </a>
+    <div class="detail-kicker" style="margin-top:34px">
+      <span>{data.category}</span>
+      <span>•</span>
+      <time datetime={data.publishedAt.toISOString()}>{formattedDate}</time>
+      <span>•</span>
+      <span>{data.readingTime} min read</span>
+    </div>
+    <h1 class="detail-title">{data.title}</h1>
+    <p class="detail-description">{data.description}</p>
+    <div class="tag-list">
+      {data.tags.map((tag) => <span class="tag">{tag}</span>)}
+    </div>
+  </header>
+
+  <section class="section section-compact">
+    <article class="narrow prose">
+      <Content />
+      {data.sourceUrl && (
+        <p style="margin-top:3em;padding-top:1.5em;border-top:1px solid var(--line)">
+          <a class="text-link" href={data.sourceUrl} target="_blank" rel="noreferrer">
+            View resources and source code
+            <ArrowUpRight size={17} strokeWidth={1.9} />
+          </a>
+        </p>
+      )}
+    </article>
+  </section>
+</BaseLayout>

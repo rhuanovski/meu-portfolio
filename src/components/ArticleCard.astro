@@ -1,14 +1,17 @@
 ---
 import { ArrowUpRight } from "lucide-react";
 import type { CollectionEntry } from "astro:content";
+import type { Locale } from "../i18n";
 
 interface Props {
-  article: CollectionEntry<"articles">;
+  article: CollectionEntry<"articles"> | CollectionEntry<"articlesEn">;
+  locale?: Locale;
 }
 
-const { article } = Astro.props;
+const { article, locale = "pt" } = Astro.props;
 const { data } = article;
-const formattedDate = new Intl.DateTimeFormat("pt-BR", {
+const isEnglish = locale === "en";
+const formattedDate = new Intl.DateTimeFormat(isEnglish ? "en-US" : "pt-BR", {
   month: "short",
   year: "numeric",
 }).format(data.publishedAt);
@@ -23,8 +26,12 @@ const formattedDate = new Intl.DateTimeFormat("pt-BR", {
   <h3 class="article-title">{data.title}</h3>
   <p class="article-description">{data.description}</p>
   <span class="text-link" aria-hidden="true">
-    Ler artigo
+    {isEnglish ? "Read article" : "Ler artigo"}
     <ArrowUpRight size={17} strokeWidth={1.9} />
   </span>
-  <a class="card-link" href={`/artigos/${article.id}`} aria-label={`Ler artigo ${data.title}`}></a>
+  <a
+    class="card-link"
+    href={isEnglish ? `/en/articles/${article.id}` : `/artigos/${article.id}`}
+    aria-label={isEnglish ? `Read article ${data.title}` : `Ler artigo ${data.title}`}
+  ></a>
 </article>

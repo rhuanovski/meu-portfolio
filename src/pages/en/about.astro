@@ -1,0 +1,93 @@
+---
+import { Check, GithubIcon } from "lucide-react";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import { site } from "../../data/site";
+---
+
+<BaseLayout
+  locale="en"
+  title="About"
+  description="Meet Rhuan Carlos, a Computer Engineering student and software developer based in Marabá, Pará, Brazil."
+>
+  <header class="container page-hero">
+    <p class="eyebrow">About</p>
+    <h1 class="page-title">Technology should make complexity understandable.</h1>
+    <p class="lede">
+      I am Rhuan Carlos, a Computer Engineering student and software developer
+      interested in digital products, architecture, artificial intelligence,
+      and carefully crafted interfaces.
+    </p>
+  </header>
+
+  <section class="section section-compact">
+    <div class="container about-grid">
+      <div class="about-copy">
+        <p>
+          I enjoy working at the intersection of disciplines: understanding the problem,
+          organizing the rules, designing the experience, and turning it all into software
+          that other people can use and maintain.
+        </p>
+        <p>
+          My work spans web applications, serverless systems, databases, security,
+          computer vision, and the reproduction of artificial intelligence experiments.
+        </p>
+        <p>
+          The “Apple Design” of this portfolio reflects a personal preference: less noise,
+          clear hierarchy, subtle details, and technology in service of the experience.
+        </p>
+        <div class="button-row">
+          <a class="button button-primary" href={site.github} target="_blank" rel="noreferrer">
+            <GithubIcon size={17} strokeWidth={1.9} />
+            View code on GitHub
+          </a>
+          <a class="button button-secondary" href="/en/contact">Get in touch</a>
+        </div>
+      </div>
+      <aside>
+        <p class="eyebrow">Working principles</p>
+        <ul class="principles" style="margin-top:20px">
+          {[
+            "Clarity before complexity",
+            "Security as a product requirement",
+            "Documented technical decisions",
+            "Accessibility and performance",
+            "Curiosity with rigor",
+          ].map((principle) => (
+            <li class="principle">
+              <span class="principle-check" aria-hidden="true">
+                <Check size={13} strokeWidth={2.2} />
+              </span>
+              {principle}
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-tint">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Stack"
+        title="Tools change. Fundamentals remain."
+        description="I choose technologies based on the problem while keeping readability, security, and maintenance cost in view."
+      />
+      <div class="filter-row">
+        {[
+          "JavaScript",
+          "TypeScript",
+          "React",
+          "Python",
+          "OpenCV",
+          "PostgreSQL",
+          "Supabase",
+          "Cloudflare",
+          "Git",
+          "C / C++",
+          "Java",
+        ].map((technology) => <span class="filter-chip">{technology}</span>)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

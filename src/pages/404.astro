@@ -1,25 +1,30 @@
 ---
 import { ArrowLeft } from "lucide-react";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { isEnglishPath } from "../i18n";
+
+const isEnglish = isEnglishPath(Astro.url.pathname);
 ---
 
 <BaseLayout
-  title="Página não encontrada"
-  description="A página solicitada não foi encontrada."
+  locale={isEnglish ? "en" : "pt"}
+  title={isEnglish ? "Page not found" : "Página não encontrada"}
+  description={isEnglish ? "The requested page could not be found." : "A página solicitada não foi encontrada."}
   noindex={true}
 >
   <section class="container not-found">
     <div>
       <p class="not-found-code" aria-hidden="true">404</p>
-      <h1>Este caminho não existe.</h1>
+      <h1>{isEnglish ? "This path does not exist." : "Este caminho não existe."}</h1>
       <p>
-        O endereço pode ter mudado ou a página ainda não foi publicada.
-        Você pode voltar ao início e continuar explorando.
+        {isEnglish
+          ? "The address may have changed, or the page may not have been published yet. You can return home and continue exploring."
+          : "O endereço pode ter mudado ou a página ainda não foi publicada. Você pode voltar ao início e continuar explorando."}
       </p>
       <div class="button-row" style="justify-content:center">
-        <a class="button button-primary" href="/">
+        <a class="button button-primary" href={isEnglish ? "/en" : "/"}>
           <ArrowLeft size={17} strokeWidth={1.9} />
-          Voltar ao início
+          {isEnglish ? "Back to home" : "Voltar ao início"}
         </a>
       </div>
     </div>

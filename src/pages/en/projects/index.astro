@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ProjectCard from "../../../components/ProjectCard.astro";
+
+const projects = (await getCollection("projectsEn", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const technologies = [...new Set(projects.flatMap(({ data }) => data.stack))].slice(0, 9);
+---
+
+<BaseLayout
+  locale="en"
+  title="Projects"
+  description="Software, applied research, and computer vision projects developed by Rhuan Carlos."
+>
+  <header class="container page-hero">
+    <p class="eyebrow">Projects</p>
+    <h1 class="page-title">From problem to product.</h1>
+    <p class="lede">
+      Software, research, and experiments built with close attention to architecture,
+      evidence, and user experience.
+    </p>
+    <div class="filter-row" aria-label="Technologies used in these projects">
+      {technologies.map((technology) => <span class="filter-chip">{technology}</span>)}
+    </div>
+  </header>
+
+  <section class="section section-compact">
+    <div class="container project-grid">
+      {projects.map((project) => <ProjectCard project={project} locale="en" />)}
+    </div>
+  </section>
+</BaseLayout>

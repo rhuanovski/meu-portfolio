@@ -1,0 +1,45 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ArticleCard from "../../../components/ArticleCard.astro";
+import EmptyState from "../../../components/EmptyState.astro";
+
+const articles = (await getCollection("articlesEn", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const categories = [...new Set(articles.map(({ data }) => data.category))];
+---
+
+<BaseLayout
+  locale="en"
+  title="Articles"
+  description="Articles by Rhuan Carlos on software engineering, architecture, artificial intelligence, and applied research."
+>
+  <header class="container page-hero">
+    <p class="eyebrow">Articles</p>
+    <h1 class="page-title">Thinking is building, too.</h1>
+    <p class="lede">
+      Notes on technical decisions, unexpected results, and the reasoning behind
+      products and research.
+    </p>
+    <div class="filter-row" aria-label="Article categories">
+      {categories.map((category) => <span class="filter-chip">{category}</span>)}
+    </div>
+  </header>
+
+  <section class="section section-compact">
+    <div class="container">
+      {
+        articles.length > 0 ? (
+          <div class="article-grid">
+            {articles.map((article) => <ArticleCard article={article} locale="en" />)}
+          </div>
+        ) : (
+          <EmptyState
+            title="New writing in progress"
+            description="This archive will feature articles on engineering, research, and digital products."
+          />
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

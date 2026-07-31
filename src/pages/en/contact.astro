@@ -1,0 +1,86 @@
+---
+import { ArrowUpRight, GithubIcon, LinkedinIcon, Mail, MessageCircle, Send } from "lucide-react";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { site } from "../../data/site";
+---
+
+<BaseLayout
+  locale="en"
+  title="Contact"
+  description="Contact Rhuan Carlos about software and engineering projects, opportunities, and collaborations."
+>
+  <header class="container page-hero">
+    <p class="eyebrow">Contact</p>
+    <h1 class="page-title">Let's build something good.</h1>
+    <p class="lede">
+      Tell me a little about the problem, opportunity, or idea. The more context
+      you share, the better our first conversation will be.
+    </p>
+  </header>
+
+  <section class="section section-compact">
+    <div class="container contact-grid">
+      <aside class="contact-panel contact-panel-dark">
+        <p class="eyebrow" style="color:#c4b2ff">Direct channels</p>
+        <h2>Choose how you would like to talk.</h2>
+        <p>
+          For projects, collaborations, applied research, or professional opportunities.
+        </p>
+        <div class="contact-links">
+          <a class="contact-link" href={`mailto:${site.email}`}>
+            <span style="display:flex;align-items:center;gap:10px"><Mail size={17} /> Email</span>
+            <ArrowUpRight size={16} />
+          </a>
+          <a class="contact-link" href={site.whatsappEn} target="_blank" rel="noreferrer">
+            <span style="display:flex;align-items:center;gap:10px"><MessageCircle size={17} /> WhatsApp</span>
+            <ArrowUpRight size={16} />
+          </a>
+          <a class="contact-link" href={site.linkedin} target="_blank" rel="noreferrer">
+            <span style="display:flex;align-items:center;gap:10px"><LinkedinIcon size={17} /> LinkedIn</span>
+            <ArrowUpRight size={16} />
+          </a>
+          <a class="contact-link" href={site.github} target="_blank" rel="noreferrer">
+            <span style="display:flex;align-items:center;gap:10px"><GithubIcon size={17} /> GitHub</span>
+            <ArrowUpRight size={16} />
+          </a>
+        </div>
+      </aside>
+
+      <div class="contact-panel">
+        <form
+          class="form-grid"
+          action={`https://formsubmit.co/${site.email}`}
+          method="POST"
+        >
+          <input type="hidden" name="_subject" value="New message from the portfolio" />
+          <input type="hidden" name="_template" value="table" />
+          <input class="hidden-field" type="text" name="_honey" tabindex="-1" autocomplete="off" />
+
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required placeholder="What should I call you?" />
+          </div>
+          <div class="field">
+            <label for="email">Your email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
+          </div>
+          <div class="field">
+            <label for="subject">Subject</label>
+            <input id="subject" name="subject" type="text" required placeholder="Project, opportunity, or collaboration" />
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required placeholder="Share the context and how I can help."></textarea>
+          </div>
+          <button class="button button-accent" type="submit">
+            Send message
+            <Send size={16} strokeWidth={1.9} />
+          </button>
+        </form>
+        <p class="form-note">
+          When you submit this form, your message will be sent directly to {site.email}.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

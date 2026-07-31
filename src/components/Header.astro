@@ -1,22 +1,50 @@
 ---
 import { GithubIcon, LinkedinIcon, Mail, Menu, X } from "lucide-react";
-import { navigation, site } from "../data/site";
+import { site } from "../data/site";
+import { getLanguagePaths, navigation, type Locale } from "../i18n";
 
 const pathname = Astro.url.pathname;
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "pt" } = Astro.props;
+const isEnglish = locale === "en";
+const links = navigation[locale];
+const languagePaths = getLanguagePaths(pathname);
+const homePath = locale === "en" ? "/en" : "/";
+const contactPath = locale === "en" ? "/en/contact" : "/contato";
+const labels = isEnglish
+  ? {
+      home: `${site.name}, home page`,
+      navigation: "Main navigation",
+      languages: "Choose language",
+      openMenu: "Open menu",
+      mobileNavigation: "Mobile navigation",
+      contact: "Contact me",
+    }
+  : {
+      home: `${site.name}, página inicial`,
+      navigation: "Navegação principal",
+      languages: "Escolher idioma",
+      openMenu: "Abrir menu",
+      mobileNavigation: "Navegação mobile",
+      contact: "Fale comigo",
+    };
 const isActive = (href: string) =>
   href === "/" ? pathname === "/" : pathname.startsWith(href);
 ---
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/" aria-label={`${site.name}, página inicial`}>
+    <a class="brand" href={homePath} aria-label={labels.home}>
       <span class="brand-mark" aria-hidden="true">RC</span>
       <span>{site.name}</span>
     </a>
 
-    <nav class="desktop-nav" aria-label="Navegação principal">
+    <nav class="desktop-nav" aria-label={labels.navigation}>
       {
-        navigation.map((item) => (
+        links.map((item) => (
           <a
             class="nav-link"
             href={item.href}
@@ -29,26 +57,42 @@ const isActive = (href: string) =>
     </nav>
 
     <div class="header-actions">
-      <a class="icon-link" href={site.github} target="_blank" rel="noreferrer" aria-label="GitHub de Rhuan Carlos">
+      <nav class="language-switch" aria-label={labels.languages}>
+        <a
+          href={languagePaths.pt}
+          lang="pt-BR"
+          hreflang="pt-BR"
+          aria-label="Português"
+          aria-current={locale === "pt" ? "page" : undefined}
+        >PT</a>
+        <a
+          href={languagePaths.en}
+          lang="en"
+          hreflang="en"
+          aria-label="English"
+          aria-current={locale === "en" ? "page" : undefined}
+        >EN</a>
+      </nav>
+      <a class="icon-link" href={site.github} target="_blank" rel="noreferrer" aria-label={isEnglish ? "Rhuan Carlos on GitHub" : "GitHub de Rhuan Carlos"}>
         <GithubIcon size={17} strokeWidth={1.8} />
       </a>
-      <a class="icon-link" href={site.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn de Rhuan Carlos">
+      <a class="icon-link" href={site.linkedin} target="_blank" rel="noreferrer" aria-label={isEnglish ? "Rhuan Carlos on LinkedIn" : "LinkedIn de Rhuan Carlos"}>
         <LinkedinIcon size={17} strokeWidth={1.8} />
       </a>
-      <a class="button button-primary" href="/contato">
+      <a class="button button-primary" href={contactPath}>
         <Mail size={16} strokeWidth={1.9} />
-        Fale comigo
+        {labels.contact}
       </a>
 
       <details class="mobile-menu">
-        <summary aria-label="Abrir menu">
+        <summary aria-label={labels.openMenu}>
           <span class="menu-icon"><Menu size={19} strokeWidth={1.8} /></span>
           <span class="close-icon"><X size={19} strokeWidth={1.8} /></span>
         </summary>
         <div class="mobile-menu-panel">
-          <nav aria-label="Navegação mobile">
+          <nav aria-label={labels.mobileNavigation}>
             {
-              navigation.map((item) => (
+              links.map((item) => (
                 <a
                   class="nav-link"
                   href={item.href}
@@ -62,7 +106,7 @@ const isActive = (href: string) =>
           <div class="mobile-menu-actions">
             <a class="button button-secondary" href={site.github} target="_blank" rel="noreferrer">GitHub</a>
             <a class="button button-secondary" href={site.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-            <a class="button button-accent" href="/contato">Fale comigo</a>
+            <a class="button button-accent" href={contactPath}>{labels.contact}</a>
           </div>
         </div>
       </details>

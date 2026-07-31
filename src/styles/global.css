@@ -369,6 +369,44 @@ summary {
   gap: 10px;
 }
 
+.language-switch {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.56);
+  backdrop-filter: blur(16px);
+}
+
+.language-switch a {
+  display: grid;
+  min-width: 31px;
+  height: 29px;
+  place-items: center;
+  border-radius: 999px;
+  color: var(--text-faint);
+  font-size: 0.7rem;
+  font-weight: 760;
+  letter-spacing: 0.02em;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.language-switch a:hover {
+  color: var(--text);
+}
+
+.language-switch a[aria-current="page"] {
+  color: var(--text);
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(30, 24, 50, 0.11);
+}
+
 .icon-link {
   display: grid;
   width: 40px;

@@ -13,31 +13,46 @@ export const GET: APIRoute = async ({ request }) => {
   const origin = new URL(request.url).origin;
   const projects = await getCollection("projects", ({ data }) => !data.draft);
   const articles = await getCollection("articles", ({ data }) => !data.draft);
-  const staticRoutes = ["/", "/projetos", "/artigos", "/trajetoria", "/sobre", "/contato"];
+  const staticRoutes = [
+    { pt: "/", en: "/en" },
+    { pt: "/projetos", en: "/en/projects" },
+    { pt: "/artigos", en: "/en/articles" },
+    { pt: "/trajetoria", en: "/en/journey" },
+    { pt: "/sobre", en: "/en/about" },
+    { pt: "/contato", en: "/en/contact" },
+  ];
   const entries = [
-    ...staticRoutes.map((path) => ({ path, updatedAt: undefined })),
+    ...staticRoutes.map((routes) => ({ ...routes, updatedAt: undefined })),
     ...projects.map((project) => ({
-      path: `/projetos/${project.id}`,
+      pt: `/projetos/${project.id}`,
+      en: `/en/projects/${project.id}`,
       updatedAt: project.data.updatedAt ?? project.data.publishedAt,
     })),
     ...articles.map((article) => ({
-      path: `/artigos/${article.id}`,
+      pt: `/artigos/${article.id}`,
+      en: `/en/articles/${article.id}`,
       updatedAt: article.data.updatedAt ?? article.data.publishedAt,
     })),
   ];
 
   const urls = entries
-    .map(({ path, updatedAt }) => {
-      const location = escapeXml(new URL(path, origin).toString());
+    .flatMap(({ pt, en, updatedAt }) => {
+      const portugueseUrl = escapeXml(new URL(pt, origin).toString());
+      const englishUrl = escapeXml(new URL(en, origin).toString());
       const lastModified = updatedAt
         ? `\n    <lastmod>${updatedAt.toISOString()}</lastmod>`
         : "";
-      return `  <url>\n    <loc>${location}</loc>${lastModified}\n  </url>`;
+      const alternates = `\n    <xhtml:link rel="alternate" hreflang="pt-BR" href="${portugueseUrl}" />\n    <xhtml:link rel="alternate" hreflang="en" href="${englishUrl}" />\n    <xhtml:link rel="alternate" hreflang="x-default" href="${portugueseUrl}" />`;
+
+      return [
+        `  <url>\n    <loc>${portugueseUrl}</loc>${lastModified}${alternates}\n  </url>`,
+        `  <url>\n    <loc>${englishUrl}</loc>${lastModified}${alternates}\n  </url>`,
+      ];
     })
     .join("\n");
 
   return new Response(
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`,
     {
       headers: {
         "Content-Type": "application/xml; charset=utf-8",

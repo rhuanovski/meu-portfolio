@@ -4,6 +4,7 @@ import Footer from "../components/Footer.astro";
 import { MessageCircle } from "lucide-react";
 import "../styles/global.css";
 import { site } from "../data/site";
+import { getLanguagePaths, localeMeta, type Locale } from "../i18n";
 
 interface Props {
   title?: string;
@@ -12,83 +13,95 @@ interface Props {
   type?: "website" | "article";
   noindex?: boolean;
   jsonLd?: Record<string, unknown>;
+  locale?: Locale;
 }
 
 const {
   title,
-  description = site.description,
+  description,
   image = "/og.png",
   type = "website",
   noindex = false,
   jsonLd,
+  locale = "pt",
 } = Astro.props;
 
-const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — Engenharia e software`;
+const meta = localeMeta[locale];
+const isEnglish = locale === "en";
+const pageDescription = description ?? meta.description;
+const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${meta.defaultTitle}`;
 const origin = Astro.site ?? Astro.url.origin;
 const canonical = new URL(Astro.url.pathname, origin);
 const socialImage = new URL(image, origin);
+const languagePaths = getLanguagePaths(Astro.url.pathname);
+const portugueseUrl = new URL(languagePaths.pt, origin);
+const englishUrl = new URL(languagePaths.en, origin);
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: site.fullName,
-  url: origin.toString(),
+  url: canonical.toString(),
   image: new URL(site.profileImage, origin).toString(),
-  jobTitle: site.role,
+  jobTitle: isEnglish ? site.roleEn : site.role,
   homeLocation: {
     "@type": "Place",
-    name: site.location,
+    name: isEnglish ? site.locationEn : site.location,
   },
   sameAs: [site.github, site.linkedin],
 };
 ---
 
 <!doctype html>
-<html lang="pt-BR">
+<html lang={meta.htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#f5f5f7" />
     <meta name="color-scheme" content="light" />
-    <meta name="description" content={description} />
+    <meta name="description" content={pageDescription} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="pt-BR" href={portugueseUrl} />
+    <link rel="alternate" hreflang="en" href={englishUrl} />
+    <link rel="alternate" hreflang="x-default" href={portugueseUrl} />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <link rel="alternate" type="application/rss+xml" title={`Artigos de ${site.name}`} href="/rss.xml" />
+    <link rel="manifest" href={isEnglish ? "/site-en.webmanifest" : "/site.webmanifest"} />
+    <link rel="alternate" type="application/rss+xml" title={meta.rssTitle} href={isEnglish ? "/en/rss.xml" : "/rss.xml"} />
     <title>{pageTitle}</title>
 
-    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale" content={meta.ogLocale} />
+    <meta property="og:locale:alternate" content={isEnglish ? "pt_BR" : "en_US"} />
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
-    <meta property="og:image:alt" content={`Apresentação do portfólio de ${site.name}`} />
+    <meta property="og:image:alt" content={isEnglish ? `${site.name}'s portfolio presentation` : `Apresentação do portfólio de ${site.name}`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={socialImage} />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd ?? personSchema)} />
   </head>
   <body>
-    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-    <Header />
+    <a class="skip-link" href="#conteudo">{isEnglish ? "Skip to content" : "Pular para o conteúdo"}</a>
+    <Header locale={locale} />
     <main id="conteudo" class="site-main">
       <slot />
     </main>
     <a
       class="whatsapp-fab"
-      href={site.whatsapp}
+      href={isEnglish ? site.whatsappEn : site.whatsapp}
       target="_blank"
       rel="noreferrer"
-      aria-label="Conversar com Rhuan Carlos pelo WhatsApp"
+      aria-label={isEnglish ? "Chat with Rhuan Carlos on WhatsApp" : "Conversar com Rhuan Carlos pelo WhatsApp"}
     >
       <MessageCircle size={21} strokeWidth={2} aria-hidden="true" />
       <span>WhatsApp</span>
     </a>
-    <Footer />
+    <Footer locale={locale} />
   </body>
 </html>

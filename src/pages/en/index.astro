@@ -1,0 +1,182 @@
+---
+import {
+  ArrowRight,
+  BrainCircuit,
+  Code2,
+  Layers3,
+  MapPin,
+  ScanEye,
+  ShieldCheck,
+} from "lucide-react";
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import { site } from "../../data/site";
+
+const projects = (await getCollection("projectsEn", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const featuredProjects = projects.filter(({ data }) => data.featured).slice(0, 3);
+const articles = (await getCollection("articlesEn", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 2);
+---
+
+<BaseLayout locale="en">
+  <section class="container hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Computer Engineer • Software and SaaS Development</p>
+      <h1 class="display-title">
+        Technology with <span class="gradient-text">clarity.</span>
+      </h1>
+      <p class="lede">
+        I build digital products that connect engineering, experience, and purpose—from
+        architecture to the detail that makes an interface feel simple.
+      </p>
+      <div class="button-row">
+        <a class="button button-accent" href="/en/projects">
+          Explore projects
+          <ArrowRight size={17} strokeWidth={1.9} />
+        </a>
+        <a class="button button-secondary" href="/en/about">Discover my work</a>
+      </div>
+      <p class="hero-note">
+        <span class="availability-dot" aria-hidden="true"></span>
+        Available for projects, applied research, and good conversations.
+      </p>
+    </div>
+
+    <div class="portrait-stage">
+      <div class="portrait-frame">
+        <img
+          src={site.profileImage}
+          alt={site.profileImageAltEn}
+          width="762"
+          height="672"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
+      <div class="portrait-badge">
+        <span class="portrait-badge-icon" aria-hidden="true">
+          <MapPin size={17} strokeWidth={1.8} />
+        </span>
+        <span>
+          <strong>Marabá, Pará — Brazil</strong>
+          <span></span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="container signal-bar" aria-label="Areas of expertise">
+    <div class="signal">
+      <strong>End-to-end products</strong>
+      <span>Web, software, and digital experiences.</span>
+    </div>
+    <div class="signal">
+      <strong>Applied engineering</strong>
+      <span>Architecture, data, security, and research.</span>
+    </div>
+    <div class="signal">
+      <strong>Intentional design</strong>
+      <span>Visual clarity with less noise and more purpose.</span>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Selected work"
+        title="Projects that solve real problems."
+        description="A selection of products, research, and experiments where architecture and experience move together."
+        href="/en/projects"
+        linkLabel="View all projects"
+      />
+      <div class="project-grid">
+        {featuredProjects.map((project) => <ProjectCard project={project} locale="en" />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint">
+    <div class="container">
+      <SectionHeading
+        eyebrow="How I work"
+        title="Engineering in four layers."
+        description="Every technical decision starts with the problem and ends with the experience of the person using it."
+      />
+      <div class="bento-grid">
+        <article class="bento-card">
+          <span class="bento-icon" aria-hidden="true"><Layers3 size={22} strokeWidth={1.8} /></span>
+          <h3>Architecture that stays simple.</h3>
+          <p>
+            I structure applications, integrations, and data so they can grow without
+            turning maintenance into an obstacle.
+          </p>
+        </article>
+        <article class="bento-card">
+          <span class="bento-icon" aria-hidden="true"><ShieldCheck size={22} strokeWidth={1.8} /></span>
+          <h3>Security from the first decision.</h3>
+          <p>
+            Permissions, isolation, and traceability are part of the product design.
+          </p>
+        </article>
+        <article class="bento-card">
+          <span class="bento-icon" aria-hidden="true"><ScanEye size={22} strokeWidth={1.8} /></span>
+          <h3>Computer vision in practice.</h3>
+          <p>
+            Observable experiments with OpenCV, MediaPipe, and image processing.
+          </p>
+        </article>
+        <article class="bento-card">
+          <span class="bento-icon" aria-hidden="true"><BrainCircuit size={22} strokeWidth={1.8} /></span>
+          <h3>Research that accepts difficult results.</h3>
+          <p>
+            I reproduce, compare, and document evidence—even when it challenges the
+            expected outcome.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Notes and lessons"
+        title="Ideas documented, not hidden away."
+        description="Writing about engineering decisions, applied research, and the details that change a product."
+        href="/en/articles"
+        linkLabel="Browse all articles"
+      />
+      <div class="article-grid">
+        {articles.map((article) => <ArticleCard article={article} locale="en" />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-compact">
+    <div class="container">
+      <div class="cta">
+        <h2>Have an interesting problem to solve?</h2>
+        <p>
+          I am open to collaborations, opportunities, and projects that value
+          thoughtful engineering and a carefully crafted experience.
+        </p>
+        <div class="button-row">
+          <a class="button button-accent" href="/en/contact">
+            Let's talk
+            <ArrowRight size={17} strokeWidth={1.9} />
+          </a>
+          <a class="button button-secondary" href={site.github} target="_blank" rel="noreferrer">
+            <Code2 size={17} strokeWidth={1.9} />
+            View GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

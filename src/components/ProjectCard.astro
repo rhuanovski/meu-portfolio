@@ -1,12 +1,15 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import type { Locale } from "../i18n";
 
 interface Props {
-  project: CollectionEntry<"projects">;
+  project: CollectionEntry<"projects"> | CollectionEntry<"projectsEn">;
+  locale?: Locale;
 }
 
-const { project } = Astro.props;
+const { project, locale = "pt" } = Astro.props;
 const { data } = project;
+const isEnglish = locale === "en";
 const initials = data.title
   .split(" ")
   .slice(0, 2)
@@ -33,9 +36,13 @@ const initials = data.title
     </div>
     <h3 class="project-title">{data.title}</h3>
     <p class="project-description">{data.description}</p>
-    <div class="tag-list" aria-label="Tecnologias">
+    <div class="tag-list" aria-label={isEnglish ? "Technologies" : "Tecnologias"}>
       {data.stack.slice(0, 5).map((technology) => <span class="tag">{technology}</span>)}
     </div>
   </div>
-  <a class="card-link" href={`/projetos/${project.id}`} aria-label={`Ver projeto ${data.title}`}></a>
+  <a
+    class="card-link"
+    href={isEnglish ? `/en/projects/${project.id}` : `/projetos/${project.id}`}
+    aria-label={isEnglish ? `View project ${data.title}` : `Ver projeto ${data.title}`}
+  ></a>
 </article>

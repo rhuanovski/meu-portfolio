@@ -1,17 +1,26 @@
 ---
-import { navigation, site } from "../data/site";
+import { site } from "../data/site";
+import { navigation, type Locale } from "../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "pt" } = Astro.props;
 const year = new Date().getFullYear();
+const links = navigation[locale];
+const isEnglish = locale === "en";
 ---
 
 <footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-copy">
-      © {year} {site.fullName}. Criado em Marabá, Pará.
+      © {year} {site.fullName}. {isEnglish ? "Crafted in Marabá, Pará." : "Criado em Marabá, Pará."}
     </p>
-    <nav class="footer-links" aria-label="Links do rodapé">
-      {navigation.slice(0, 3).map((item) => <a class="footer-link" href={item.href}>{item.label}</a>)}
-      <a class="footer-link" href="/rss.xml">RSS</a>
-      <a class="footer-link" href="/contato">Contato</a>
+    <nav class="footer-links" aria-label={isEnglish ? "Footer links" : "Links do rodapé"}>
+      {links.slice(0, 3).map((item) => <a class="footer-link" href={item.href}>{item.label}</a>)}
+      <a class="footer-link" href={isEnglish ? "/en/rss.xml" : "/rss.xml"}>RSS</a>
+      <a class="footer-link" href={isEnglish ? "/en/contact" : "/contato"}>{isEnglish ? "Contact" : "Contato"}</a>
     </nav>
   </div>
 </footer>
