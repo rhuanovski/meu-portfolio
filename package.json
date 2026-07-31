@@ -4,11 +4,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG=none WRANGLER_LOG_PATH=/tmp/rhuan-portfolio-wrangler.log astro dev",
-    "build": "npm run check && ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG=none WRANGLER_LOG_PATH=/tmp/rhuan-portfolio-wrangler.log astro build",
-    "postbuild": "node scripts/prepare-sites-build.mjs",
-    "check": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG=none WRANGLER_LOG_PATH=/tmp/rhuan-portfolio-wrangler.log astro check",
-    "preview": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG=none WRANGLER_LOG_PATH=/tmp/rhuan-portfolio-wrangler.log astro preview"
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "npm run check && ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview"
   },
   "dependencies": {
     "@astrojs/netlify": "^8.1.3",

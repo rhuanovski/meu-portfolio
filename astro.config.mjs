@@ -1,12 +1,10 @@
 import { defineConfig } from "astro/config";
-import cloudflare from "@astrojs/cloudflare";
+import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 
 export default defineConfig({
   output: "server",
-  adapter: cloudflare({
-    imageService: "compile",
-  }),
+  adapter: netlify(),
   integrations: [react()],
   prefetch: {
     prefetchAll: true,

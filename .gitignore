@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 .astro
+.netlify
 .wrangler
 .dev.vars
 *.local
