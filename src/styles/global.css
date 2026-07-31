@@ -232,6 +232,16 @@ summary {
   backdrop-filter: blur(16px);
 }
 
+.button-github {
+  border-color: var(--line);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(16px);
+}
+
+.button-github:hover {
+  background: rgba(62, 62, 62, 0.8);
+}
+
 .button-secondary:hover {
   border-color: rgba(17, 17, 20, 0.16);
   background: #fff;
