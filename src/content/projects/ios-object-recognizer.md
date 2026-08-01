@@ -1,24 +1,27 @@
 ---
-title: "Reconhecimento de Objetos no iPhone"
-description: "Aplicativo acadêmico em SwiftUI que usa a câmera, Vision e um modelo Core ML treinado para reconhecer objetos em tempo real."
-eyebrow: "iOS • Visão computacional • Faculdade"
-publishedAt: 2026-07-31
-status: "Protótipo funcional"
+title: Reconhecimento de Objetos no iPhone
+description: >-
+  Aplicativo acadêmico em SwiftUI que usa a câmera, Vision e um modelo Core ML
+  treinado para reconhecer objetos em tempo real.
+eyebrow: iOS • Visão computacional • Faculdade
+publishedAt: '2026-07-31'
+status: Protótipo funcional
 featured: false
 stack:
-  - "SwiftUI"
-  - "Vision"
-  - "Core ML"
-  - "AVFoundation"
-  - "PyTorch"
+  - SwiftUI
+  - Vision
+  - Core ML
+  - AVFoundation
+  - PyTorch
 highlights:
-  - "Classificação pela câmera"
-  - "Modelo treinado pelo autor"
-  - "Pipeline PyTorch para Core ML"
-github: "https://github.com/rhuanovski/ios-object-recognizer"
-accent: "violet"
+  - Classificação pela câmera
+  - Modelo treinado pelo autor
+  - Pipeline PyTorch para Core ML
+github: 'https://github.com/rhuanovski/ios-object-recognizer'
+accent: violet
+image: /images/projects/camera-1785609672282.jpg
+draft: false
 ---
-
 Este projeto de faculdade conecta duas etapas que eu queria compreender na
 prática: treinar um modelo de visão computacional e colocá-lo dentro de um
 aplicativo real para iPhone.

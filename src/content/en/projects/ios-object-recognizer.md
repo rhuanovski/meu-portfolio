@@ -1,50 +1,43 @@
 ---
-title: "iPhone Object Recognizer"
-description: "An academic SwiftUI app that uses the camera, Vision, and a trained Core ML model to recognize objects in real time."
-eyebrow: "iOS • Computer vision • College"
-publishedAt: 2026-07-31
-status: "Functional prototype"
+title: Object Recognition on iPhone
+description: >-
+  Academic app in SwiftUI that uses the camera, Vision, and a trained Core ML
+  model to recognize objects in real time.
+eyebrow: iOS • Computer vision • University
+publishedAt: '2026-07-31'
+status: Working prototype
 featured: false
 stack:
-  - "SwiftUI"
-  - "Vision"
-  - "Core ML"
-  - "AVFoundation"
-  - "PyTorch"
+  - SwiftUI
+  - Vision
+  - Core ML
+  - AVFoundation
+  - PyTorch
 highlights:
-  - "Live camera classification"
-  - "Custom-trained model"
-  - "PyTorch-to-Core ML pipeline"
-github: "https://github.com/rhuanovski/ios-object-recognizer"
-accent: "violet"
+  - Camera-based classification
+  - Model trained by the author
+  - PyTorch to Core ML pipeline
+github: 'https://github.com/rhuanovski/ios-object-recognizer'
+accent: violet
+image: /images/projects/camera-1785609672282.jpg
+draft: false
 ---
+This university project connects two steps I wanted to understand in practice: training a computer vision model and putting it inside a real iPhone app.
 
-This college project connects two stages I wanted to understand in practice:
-training a computer vision model and embedding it in a real iPhone application.
+## The app
 
-## The application
+The interface was built in SwiftUI and uses AVFoundation to capture camera frames. The Vision framework prepares each image and runs inference with a Core ML model embedded in the app.
 
-The interface is built with SwiftUI and uses AVFoundation to capture camera
-frames. Vision prepares each image and runs inference with a Core ML model
-bundled with the application.
-
-The prototype was trained to recognize classes such as person, phone,
-notebook, and bottle, displaying classifications and confidence levels while
-the camera is active.
+The prototype was trained to recognize classes such as person, cellphone, notebook, and bottle, displaying classifications and confidence levels during camera use.
 
 ## Training and conversion
 
-Training starts from MobileNetV3 in PyTorch. The model is then converted to Core
-ML and integrated into the Xcode project. The repository includes the app, the
-model package, and a reproducible training and conversion script.
+Training starts from a MobileNetV3 in PyTorch. The model is then converted to Core ML and integrated into the Xcode project. The repository publishes the app, the compiled model, and a reproducible training and conversion script.
 
-## Publication choices
+## Publication decisions
 
-The training photographs are not included in the public repository in order to
-protect privacy and image rights. The code remains available to demonstrate the
-architecture and allow a different dataset to be used.
+The photographs used in training are not part of the public repository to preserve privacy and image rights. The code remains available to demonstrate the architecture and allow another dataset to be used.
 
-## Current state
+## Current status
 
-It is a functional academic prototype with room to improve dataset quality,
-the number of classes, model evaluation, and the overall on-device experience.
+It is a functional academic prototype, with opportunities for improvement in dataset quality, number of classes, model evaluation, and polish of the on-device experience.
