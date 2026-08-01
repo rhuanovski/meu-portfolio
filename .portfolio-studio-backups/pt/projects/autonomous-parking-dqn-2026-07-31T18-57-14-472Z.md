@@ -1,27 +1,24 @@
 ---
-title: Estacionamento Autônomo com DQN
-description: >-
-  Protótipo acadêmico de aprendizado por reforço em que um agente aprende a
-  estacionar um carro em um ambiente 2D criado do zero.
-eyebrow: IA • Aprendizado por reforço • Faculdade
-publishedAt: '2026-07-31'
-status: Protótipo experimental
+title: "Estacionamento Autônomo com DQN"
+description: "Protótipo acadêmico de aprendizado por reforço em que um agente aprende a estacionar um carro em um ambiente 2D criado do zero."
+eyebrow: "IA • Aprendizado por reforço • Faculdade"
+publishedAt: 2026-07-31
+status: "Protótipo experimental"
 featured: false
 stack:
-  - Python
-  - PyTorch
-  - Pygame
-  - NumPy
-  - Dueling DQN
+  - "Python"
+  - "PyTorch"
+  - "Pygame"
+  - "NumPy"
+  - "Dueling DQN"
 highlights:
-  - Ambiente 2D próprio
-  - Modelo cinemático do veículo
-  - Replay buffer e target network
-github: 'https://github.com/rhuanovski/autonomous-parking-dqn'
-accent: blue
-image: /images/projects/estacionando-1785524222109.jpg
-draft: false
+  - "Ambiente 2D próprio"
+  - "Modelo cinemático do veículo"
+  - "Replay buffer e target network"
+github: "https://github.com/rhuanovski/autonomous-parking-dqn"
+accent: "blue"
 ---
+
 Este projeto de faculdade explora uma pergunta direta: um agente pode aprender
 a estacionar observando o estado do carro e recebendo recompensas pelas suas
 decisões?
