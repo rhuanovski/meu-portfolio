@@ -1,0 +1,121 @@
+---
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { getEntry, render } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const event = Astro.params.id
+  ? await getEntry("eventsEn", Astro.params.id)
+  : undefined;
+
+if (!event || event.data.draft) {
+  return Astro.redirect("/en/404");
+}
+
+const { data } = event;
+const { Content } = await render(event);
+const formattedDate = new Intl.DateTimeFormat("en-US", {
+  day: "2-digit",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+}).format(data.publishedAt);
+const origin = Astro.site ?? Astro.url.origin;
+const eventSchema = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  name: data.title,
+  description: data.description,
+  startDate: data.publishedAt.toISOString(),
+  inLanguage: "en",
+  location: {
+    "@type": "Place",
+    name: data.location,
+  },
+  organizer: {
+    "@type": "Organization",
+    name: data.organizer,
+  },
+  url: new URL(`/en/events/${event.id}`, origin).toString(),
+  sameAs: data.link,
+};
+---
+
+<BaseLayout
+  locale="en"
+  title={data.title}
+  description={data.description}
+  image={data.image}
+  jsonLd={eventSchema}
+>
+  <header class="container detail-hero">
+    <a class="text-link" href="/en/journey#events">
+      <ArrowLeft size={17} strokeWidth={1.9} />
+      All events
+    </a>
+    <div class="detail-kicker" style="margin-top:34px">
+      <span>{data.role}</span>
+      <span>•</span>
+      <time datetime={data.publishedAt.toISOString()}>{formattedDate}</time>
+      <span>•</span>
+      <span>{data.location}</span>
+    </div>
+    <h1 class="detail-title">{data.title}</h1>
+    <p class="detail-description">{data.description}</p>
+    {
+      data.link && (
+        <div class="button-row">
+          <a
+            class="button button-accent"
+            href={data.link}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open reference
+            <ArrowUpRight size={17} strokeWidth={1.9} />
+          </a>
+        </div>
+      )
+    }
+    {
+      data.image && (
+        <figure class="detail-media">
+          <img
+            src={data.image}
+            alt={`Record of ${data.title}`}
+            width="1600"
+            height="900"
+            decoding="async"
+          />
+        </figure>
+      )
+    }
+  </header>
+
+  <section class="section section-compact">
+    <div class="container detail-layout">
+      <article class="prose">
+        <Content />
+      </article>
+      <aside class="detail-aside" aria-label="Event summary">
+        <div class="aside-block">
+          <p class="aside-label">Organizer</p>
+          <ul class="aside-list">
+            <li>{data.organizer}</li>
+          </ul>
+        </div>
+        <div class="aside-block">
+          <p class="aside-label">Participation</p>
+          <ul class="aside-list">
+            <li>{data.role}</li>
+          </ul>
+        </div>
+        <div class="aside-block">
+          <p class="aside-label">Location</p>
+          <ul class="aside-list">
+            <li>{data.location}</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

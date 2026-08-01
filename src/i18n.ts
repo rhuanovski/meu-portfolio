@@ -42,6 +42,7 @@ const routePairs = [
   { pt: "/projetos", en: "/en/projects" },
   { pt: "/artigos", en: "/en/articles" },
   { pt: "/certificados", en: "/en/certificates" },
+  { pt: "/eventos", en: "/en/events" },
   { pt: "/trajetoria", en: "/en/journey" },
   { pt: "/contato", en: "/en/contact" },
   { pt: "/sobre", en: "/en/about" },

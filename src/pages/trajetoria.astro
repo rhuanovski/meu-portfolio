@@ -58,7 +58,7 @@ const certificates = (await getCollection("certificates", ({ data }) => !data.dr
     </div>
   </section>
 
-  <section class="section section-tint">
+  <section class="section section-tint" id="eventos">
     <div class="container">
       <SectionHeading
         eyebrow="Participações"
@@ -68,15 +68,24 @@ const certificates = (await getCollection("certificates", ({ data }) => !data.dr
       {
         events.length > 0 ? (
           <div class="timeline">
-            {events.map(({ data }) => (
-              <article class="timeline-item">
+            {events.map(({ data, id }) => (
+              <article class="timeline-item event-card">
+                <a
+                  class="card-link"
+                  href={`/eventos/${id}`}
+                  aria-label={`Ver detalhes de ${data.title}`}
+                />
                 <span class="timeline-dot" aria-hidden="true"></span>
                 <time class="timeline-date" datetime={data.publishedAt.toISOString()}>
-                  {new Intl.DateTimeFormat("pt-BR", { month: "short", year: "numeric" }).format(data.publishedAt)}
+                  {new Intl.DateTimeFormat("pt-BR", { month: "short", year: "numeric", timeZone: "UTC" }).format(data.publishedAt)}
                 </time>
                 <div class="timeline-content">
                   <h3>{data.title}</h3>
                   <p>{data.organizer} · {data.role} · {data.location}</p>
+                  <span class="text-link timeline-details-link" aria-hidden="true">
+                    Ver detalhes
+                    <ArrowUpRight size={17} strokeWidth={1.9} />
+                  </span>
                 </div>
               </article>
             ))}

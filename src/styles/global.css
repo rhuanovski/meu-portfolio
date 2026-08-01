@@ -1121,6 +1121,20 @@ summary {
   background: rgba(255, 255, 255, 0.68);
 }
 
+.event-card {
+  cursor: pointer;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.event-card:hover {
+  border-color: rgba(109, 69, 245, 0.2);
+  box-shadow: 0 20px 48px rgba(36, 28, 68, 0.09);
+  transform: translateY(-3px);
+}
+
 .timeline-dot {
   z-index: 1;
   width: 11px;
@@ -1148,6 +1162,11 @@ summary {
   margin: 8px 0 0;
   color: var(--text-soft);
   line-height: 1.65;
+}
+
+.timeline-details-link {
+  margin-top: 12px;
+  pointer-events: none;
 }
 
 .empty-state {

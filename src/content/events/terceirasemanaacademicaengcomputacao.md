@@ -3,14 +3,7 @@ title: III Semana Acadêmica de Engenharia da Computação
 description: >-
   Participação da Terceira Semana Acadêmica de Engenharia Da Computação na
   UNIFESSPA.
-publishedAt: '2026-01-01'
-issuer: Faculdade de Engenharia da Computação - Unifesspa
-skills:
-  - Engenharia da Computação
-  - Tecnologia
-  - Inovação
-  - Formação acadêmica
-  - Comunidade acadêmica
+publishedAt: '2024-11-15'
 draft: false
 organizer: FEC - UNIFESSPA
 role: Participante

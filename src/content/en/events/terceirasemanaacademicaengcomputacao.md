@@ -1,14 +1,7 @@
 ---
 title: III Academic Week of Computer Engineering
 description: Participation in the Third Academic Week of Computer Engineering at UNIFESSPA.
-publishedAt: '2026-01-01'
-issuer: Faculty of Computer Engineering - Unifesspa
-skills:
-  - Computer Engineering
-  - Technology
-  - Innovation
-  - Academic training
-  - Academic community
+publishedAt: '2024-11-15'
 draft: false
 organizer: FEC - UNIFESSPA
 role: Participant

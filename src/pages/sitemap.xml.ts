@@ -14,6 +14,7 @@ export const GET: APIRoute = async ({ request }) => {
   const projects = await getCollection("projects", ({ data }) => !data.draft);
   const articles = await getCollection("articles", ({ data }) => !data.draft);
   const certificates = await getCollection("certificates", ({ data }) => !data.draft);
+  const events = await getCollection("events", ({ data }) => !data.draft);
   const staticRoutes = [
     { pt: "/", en: "/en" },
     { pt: "/projetos", en: "/en/projects" },
@@ -38,6 +39,11 @@ export const GET: APIRoute = async ({ request }) => {
       pt: `/certificados/${certificate.id}`,
       en: `/en/certificates/${certificate.id}`,
       updatedAt: certificate.data.updatedAt ?? certificate.data.publishedAt,
+    })),
+    ...events.map((event) => ({
+      pt: `/eventos/${event.id}`,
+      en: `/en/events/${event.id}`,
+      updatedAt: event.data.updatedAt ?? event.data.publishedAt,
     })),
   ];
 
