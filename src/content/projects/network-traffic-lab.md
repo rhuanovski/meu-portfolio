@@ -1,24 +1,27 @@
 ---
-title: "Network Traffic Lab"
-description: "Versão pública e segura de um estudo acadêmico de cibersegurança, com visualização de cenários de carga totalmente sintéticos."
-eyebrow: "Cibersegurança • Observabilidade • Faculdade"
-publishedAt: 2026-07-31
-status: "Versão pública segura"
+title: Network Traffic Lab
+description: >-
+  Versão pública e segura de um estudo acadêmico de cibersegurança, com
+  visualização de cenários de carga totalmente sintéticos.
+eyebrow: Cibersegurança • Observabilidade • Faculdade
+publishedAt: '2026-07-31'
+status: Versão pública segura
 featured: false
 stack:
-  - "SwiftUI"
-  - "Swift Charts"
-  - "Python"
-  - "macOS"
-  - "Simulação"
+  - SwiftUI
+  - Swift Charts
+  - Python
+  - macOS
+  - Simulação
 highlights:
-  - "Nenhum tráfego real é enviado"
-  - "Perfis de carga sintéticos"
-  - "Métricas de taxa, latência e erros"
-github: "https://github.com/rhuanovski/network-traffic-lab"
-accent: "amber"
+  - Nenhum tráfego real é enviado
+  - Perfis de carga sintéticos
+  - 'Métricas de taxa, latência e erros'
+github: 'https://github.com/rhuanovski/network-traffic-lab'
+accent: amber
+image: /images/projects/ddos-attack-1785609831884.png
+draft: false
 ---
-
 Este trabalho começou em uma disciplina de cibersegurança da faculdade como um
 estudo sobre geração de carga e seus efeitos em serviços de rede. Para a
 publicação, reconstruí o projeto como um laboratório seguro de observabilidade.
