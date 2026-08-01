@@ -783,6 +783,10 @@ summary {
   font-weight: 620;
 }
 
+.certificate-link {
+  margin-top: 20px;
+}
+
 .card-link {
   position: absolute;
   inset: 0;
