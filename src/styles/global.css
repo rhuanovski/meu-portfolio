@@ -784,6 +784,8 @@ summary {
 }
 
 .certificate-link {
+  position: relative;
+  z-index: 4;
   margin-top: 20px;
 }
 

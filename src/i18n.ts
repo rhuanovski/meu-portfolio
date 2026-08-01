@@ -41,6 +41,7 @@ export const navigation = {
 const routePairs = [
   { pt: "/projetos", en: "/en/projects" },
   { pt: "/artigos", en: "/en/articles" },
+  { pt: "/certificados", en: "/en/certificates" },
   { pt: "/trajetoria", en: "/en/journey" },
   { pt: "/contato", en: "/en/contact" },
   { pt: "/sobre", en: "/en/about" },

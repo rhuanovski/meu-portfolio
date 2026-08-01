@@ -92,7 +92,7 @@ const certificates = (await getCollection("certificatesEn", ({ data }) => !data.
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="certifications">
     <div class="container">
       <SectionHeading
         eyebrow="Certifications"
@@ -102,8 +102,13 @@ const certificates = (await getCollection("certificatesEn", ({ data }) => !data.
       {
         certificates.length > 0 ? (
           <div class="project-grid">
-            {certificates.map(({ data }) => (
+            {certificates.map(({ data, id }) => (
               <article class="project-card">
+                <a
+                  class="card-link"
+                  href={`/en/certificates/${id}`}
+                  aria-label={`View details for ${data.title}`}
+                />
                 <div class="project-content">
                   <div class="project-meta">
                     <span>{data.issuer}</span>
